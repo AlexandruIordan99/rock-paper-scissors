@@ -74,9 +74,11 @@ function bestOf(rounds) {
     }
 
     if (computerScore > humanScore) {
-        return console.log("The computer has won. It is ahead of you by " + (computerScore - humanScore) +  " points.");
+        return console.log("The computer has won. It is ahead of you by " + (computerScore - humanScore) +
+            " points.");
     } else if (computerScore < humanScore) {
-        return console.log("You have won. You are ahead of the computer by " + (humanScore - computerScore) + " points.");
+        return console.log("You have won. You are ahead of the computer by " + (humanScore - computerScore) +
+            " points.");
     }
 
 
