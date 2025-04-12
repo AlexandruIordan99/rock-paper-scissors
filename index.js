@@ -1,5 +1,3 @@
-let computerScore = 0;
-let humanScore = 0;
 const prompt = require("prompt-sync")({sigint:true});
 
 function getComputerChoice(){
@@ -28,59 +26,63 @@ function getHumanChoice(){
 
 
 function bestOf(rounds) {
-    for (let i = 1; i <= rounds; i++) {
-        let computerChoice = getComputerChoice();
-        let humanChoice = getHumanChoice();
-        console.log(typeof (computerChoice), typeof (humanChoice));
-        if (computerChoice === humanChoice) {
-            console.log("You both selected " + computerChoice + ". It's a draw!");
-        } else if (computerChoice === "rock") {
-            if (humanChoice === "scissors") {
-                ++computerScore;
-                console.log("You selected " + humanChoice + " but the computer selected " + computerChoice +
-                    ". You've lost this round. Your score is " + humanScore + " and the computer's score is " +
-                    computerScore + ".");
-            } else {
-                ++humanScore;
-                console.log("You selected " + humanChoice + " and the computer selected " + computerChoice +
-                    ". You've won this round! Your score is " + humanScore + " and the computer's score is " +
-                    computerScore + ".");
-            }
-        } else if (computerChoice === "paper") {
-            if (humanChoice === "rock") {
-                ++computerScore;
-                console.log("You selected " + humanChoice + " but the computer selected " + computerChoice +
-                    ". You've lost this round. Your score is " + humanScore + " and the computer's score is " +
-                    computerScore + ".");
-            } else {
-                ++humanScore;
-                console.log("You selected " + humanChoice + " and the computer selected " + computerChoice +
-                    ". You've won this round! Your score is " + humanScore + " and the computer's score is " +
-                    computerScore + ".");
-            }
-        } else if (computerChoice === "scissors") {
-            if (humanChoice === "paper") {
-                ++computerScore;
-                console.log("You selected " + humanChoice + " but the computer selected " + computerChoice +
-                    ". You've lost this round. Your score is " + humanScore + " and the computer's score is " +
-                    computerScore + ".");
-            } else {
-                ++humanScore;
-                console.log("You selected " + humanChoice + " and the computer selected " + computerChoice +
-                    ". You've won this round! Your score is " + humanScore + " and the computer's score is " +
-                    computerScore + ".");
-            }
-        }
-    }
+    let computerScore = 0;
+    let humanScore = 0;
+
+      while(humanScore < rounds && computerScore < rounds) {
+          let computerChoice = getComputerChoice();
+          let humanChoice = getHumanChoice();
+          console.log(typeof (computerChoice), typeof (humanChoice));
+          if (computerChoice === humanChoice) {
+              console.log("You both selected " + computerChoice + ". It's a draw!");
+          } else if (computerChoice === "rock") {
+              if (humanChoice === "scissors") {
+                  ++computerScore;
+                  console.log("You selected " + humanChoice + " but the computer selected " + computerChoice +
+                      ". You've lost this round. Your score is " + humanScore + " and the computer's score is " +
+                      computerScore + ".");
+              } else {
+                  ++humanScore;
+                  console.log("You selected " + humanChoice + " and the computer selected " + computerChoice +
+                      ". You've won this round! Your score is " + humanScore + " and the computer's score is " +
+                      computerScore + ".");
+              }
+
+          } else if (computerChoice === "paper") {
+              if (humanChoice === "rock") {
+                  ++computerScore;
+                  console.log("You selected " + humanChoice + " but the computer selected " + computerChoice +
+                      ". You've lost this round. Your score is " + humanScore + " and the computer's score is " +
+                      computerScore + ".");
+              } else {
+                  ++humanScore;
+                  console.log("You selected " + humanChoice + " and the computer selected " + computerChoice +
+                      ". You've won this round! Your score is " + humanScore + " and the computer's score is " +
+                      computerScore + ".");
+              }
+          } else if (computerChoice === "scissors") {
+              if (humanChoice === "paper") {
+                  ++computerScore;
+                  console.log("You selected " + humanChoice + " but the computer selected " + computerChoice +
+                      ". You've lost this round. Your score is " + humanScore + " and the computer's score is " +
+                      computerScore + ".");
+              } else {
+                  ++humanScore;
+                  console.log("You selected " + humanChoice + " and the computer selected " + computerChoice +
+                      ". You've won this round! Your score is " + humanScore + " and the computer's score is " +
+                      computerScore + ".");
+              }
+          }
+      }
+
 
     if (computerScore > humanScore) {
-        return console.log("The computer has won. It is ahead of you by " + (computerScore - humanScore) +
+        console.log("The computer has won. It was ahead of you by " + (computerScore - humanScore) +
             " points.");
     } else if (computerScore < humanScore) {
-        return console.log("You have won. You are ahead of the computer by " + (humanScore - computerScore) +
+        console.log("You have won. You were ahead of the computer by " + (humanScore - computerScore) +
             " points.");
     }
-
 
 }
 
