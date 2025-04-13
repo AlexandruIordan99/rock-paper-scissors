@@ -1,5 +1,3 @@
-const prompt = require("prompt-sync")({sigint:true});
-
 function getComputerChoice(){
     let i = Math.random();
     let computerChoice ="";
@@ -13,30 +11,33 @@ function getComputerChoice(){
     return computerChoice;
 }
 
-function getHumanChoice(){
-    let humanChoice = prompt("Give us your choice of rock, paper or scissors in lower case: ")
-    if (humanChoice !== "rock" && humanChoice !== "paper" && humanChoice !== "scissors") {
-        console.log("Your input is wrong. Please try again.");
-        humanChoice = prompt("Give us your choice of rock, paper or scissors in lower case.")
-    }
-    return humanChoice;
 
-}
+const buttons = document.querySelector("#buttons");
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorsButton = document.querySelector("#scissors");
 
-function playGame(rounds) {
+rockButton.addEventListener("click", () => receiveChoice("rock"));
+paperButton.addEventListener("click", () => receiveChoice("paper"));
+scissorsButton.addEventListener("click", () => receiveChoice ("scissors"));
+
+
+
+function receiveChoice(humanChoice) {
     let computerScore = 0;
     let humanScore = 0;
 
     while(humanScore < rounds && computerScore < rounds) {
         let computerChoice = getComputerChoice();
-        let humanChoice = getHumanChoice();
+        let humanChoice= getHumanChoice();
         console.log(typeof (computerChoice), typeof (humanChoice));
         if (computerChoice === humanChoice) {
             console.log("You both selected " + computerChoice + ". It's a draw!");
-        } else if (computerChoice === "rock") {
-            if (humanChoice === "scissors") {
-                ++computerScore;
-                console.log("You selected " + humanChoice + " but the computer selected " + computerChoice +
+        } else if (computerChoice === "rock" && humanChoice === "scissors" ||
+                   computerChoice === "paper" && humanChoice === "rock"    ||
+                   computerChoice === "scissors" && humanChoice === "paper") {
+            ++computerScore;
+            console.log("You selected " + humanChoice + " but the computer selected " + computerChoice +
                     ". You've lost this round. Your score is " + humanScore + " and the computer's score is " +
                     computerScore + ".");
             } else {
@@ -46,53 +47,12 @@ function playGame(rounds) {
                     computerScore + ".");
             }
 
-        } else if (computerChoice === "paper") {
-            if (humanChoice === "rock") {
-                ++computerScore;
-                console.log("You selected " + humanChoice + " but the computer selected " + computerChoice +
-                    ". You've lost this round. Your score is " + humanScore + " and the computer's score is " +
-                    computerScore + ".");
-            } else {
-                ++humanScore;
-                console.log("You selected " + humanChoice + " and the computer selected " + computerChoice +
-                    ". You've won this round! Your score is " + humanScore + " and the computer's score is " +
-                    computerScore + ".");
-            }
-        } else if (computerChoice === "scissors") {
-            if (humanChoice === "paper") {
-                ++computerScore;
-                console.log("You selected " + humanChoice + " but the computer selected " + computerChoice +
-                    ". You've lost this round. Your score is " + humanScore + " and the computer's score is " +
-                    computerScore + ".");
-            } else {
-                ++humanScore;
-                console.log("You selected " + humanChoice + " and the computer selected " + computerChoice +
-                    ". You've won this round! Your score is " + humanScore + " and the computer's score is " +
-                    computerScore + ".");
-            }
         }
-    }
+        updateScore();
 
-
-    if (computerScore > humanScore) {
-        console.log("The computer has won. It was ahead of you by " + (computerScore - humanScore) +
-            " points.");
-    } else if (computerScore < humanScore) {
-        console.log("You have won. You were ahead of the computer by " + (humanScore - computerScore) +
-            " points.");
-    }
 }
 
-playGame(5);
-
-
-const buttonContainer = document.createElement("div");
-const rockButton = document.createElement("button");
-const paperButton = document.createElement("button");
-const scissorsButton = document.createElement("button");
-
-buttonList = [rockButton,, paperButton, scissorsButton];
-
-for (let i = 0; i < rockButton.length; i++) {
-    rockButton[i].addEventListener("click", getHumanChoice());
+function updateScore(){
+    document.getElementById("#human-score").textContent ="Your score is ${humanScore}";
+    document.getElementById("#computer-score").textContent="The computer's score is ${computerScore}";
 }
