@@ -25,8 +25,9 @@ scissorsButton.addEventListener("click", () => receiveChoice ("scissors"));
 let computerScore = 0;
 let humanScore = 0;
 
-function receiveChoice(humanChoice) {
 
+function receiveChoice(humanChoice) {
+    eraseGameOverHeader()
     let computerChoice = getComputerChoice();
     console.log(typeof (computerChoice), typeof (humanChoice));
     if (computerChoice === humanChoice) {
@@ -45,10 +46,32 @@ function receiveChoice(humanChoice) {
             computerScore + ".");
             }
     updateScore()
-
+    determineWinner()
 }
 
 function updateScore() {
     document.querySelector("#human-score").textContent ="Your score is " + humanScore;
     document.querySelector("#computer-score").textContent="The computer's score is " +computerScore;
 }
+
+const scoringArea = document.querySelector(".scoring-area");
+const gameOverHeader = scoringArea.appendChild(document.createElement("h3"));
+
+function determineWinner() {
+    if (humanScore ===5) {
+            gameOverHeader.textContent = "You have reached 5 points! You've won this match!" ;
+            humanScore = 0;
+            computerScore = 0;
+        } else if (computerScore ===5) {
+            gameOverHeader.textContent = "The computer has reached 5 points! You've lost this match.";
+            humanScore = 0;
+            computerScore = 0;
+        }
+}
+
+function eraseGameOverHeader() {
+    if (humanScore ===0 && computerScore ===0) {
+        gameOverHeader.textContent ="";
+    }
+}
+
